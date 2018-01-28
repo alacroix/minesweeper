@@ -31,7 +31,8 @@ class Cell extends PureComponent {
         onClick={this.handleOnClick}
         onContextMenu={this.handleRightClick}
       >
-        {type === 'mine' ? 'M' : minesAround}
+        {status === 'pressed' &&
+          (type === 'mine' ? 'M' : minesAround !== 0 && minesAround)}
       </div>
     );
   }
