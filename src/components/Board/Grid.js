@@ -83,11 +83,30 @@ class Grid extends Component {
     return cells;
   };
 
+  pressNeighboringCells = (cell, grid) => {
+    if (cell.status === 'pressed' && cell.minesAround === 0) {
+      this.getNeighboringCells(cell.rowIndex, cell.colIndex, grid).forEach(
+        neighbor => {
+          if (neighbor.type !== 'mine' && neighbor.status !== 'pressed') {
+            neighbor.status = 'pressed';
+            if (neighbor.minesAround === 0) {
+              this.pressNeighboringCells(neighbor, grid);
+            }
+          }
+        }
+      );
+    }
+  };
+
   handleCellClick = (newStatus, { rowIndex, colIndex }) => {
     console.log(rowIndex, colIndex, newStatus);
     const { grid } = this.state;
 
-    grid[rowIndex][colIndex].status = newStatus;
+    const cell = grid[rowIndex][colIndex];
+
+    cell.status = newStatus;
+
+    this.pressNeighboringCells(cell, grid);
 
     this.setState({
       grid
