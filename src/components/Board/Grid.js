@@ -51,6 +51,12 @@ class Grid extends Component {
       }
     });
 
+    if (process.env.NODE_ENV === 'development') {
+      console.log(
+        grid.map(row => row.map(cell => (cell.type === 'mine' ? 1 : 0)))
+      );
+    }
+
     return grid;
   };
 
