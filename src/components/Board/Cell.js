@@ -1,31 +1,29 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import cn from 'classnames';
 
-class Cell extends Component {
-  state = {
-    flagged: false,
-    pressed: false
+class Cell extends PureComponent {
+  handleStatusChange = newStatus => {
+    const { rowIndex, colIndex, status } = this.props;
+    if (status !== 'pressed') {
+      this.props.onClick(newStatus, { rowIndex, colIndex });
+    }
   };
 
   handleOnClick = () => {
-    this.setState({
-      pressed: true
-    });
+    this.handleStatusChange('pressed');
   };
 
   handleRightClick = e => {
     e.preventDefault();
-    this.setState({
-      flagged: !this.state.flagged
-    });
+    const { status } = this.props;
+    this.handleStatusChange(status === 'flagged' ? 'clear' : 'flagged');
   };
 
   render() {
-    const { flagged, pressed } = this.state;
-    const { className, type, minesAround } = this.props;
+    const { className, type, minesAround, status } = this.props;
     const cls = cn(className, {
-      [`${className}--pressed`]: pressed,
-      [`${className}--flagged`]: flagged
+      [`${className}--pressed`]: status === 'pressed',
+      [`${className}--flagged`]: status === 'flagged'
     });
     return (
       <div

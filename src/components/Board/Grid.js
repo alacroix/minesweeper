@@ -24,10 +24,16 @@ class Grid extends Component {
 
     const grid = Array(ROW_NUMBER)
       .fill()
-      .map(() =>
+      .map((_, rowIndex) =>
         Array(COL_NUMBER)
           .fill(null)
-          .map(_ => ({ type: 'empty', minesAround: 0 }))
+          .map((_, colIndex) => ({
+            status: 'clear',
+            type: 'empty',
+            minesAround: 0,
+            rowIndex,
+            colIndex
+          }))
       );
 
     // generate mines
@@ -71,6 +77,17 @@ class Grid extends Component {
     return cells;
   };
 
+  handleCellClick = (newStatus, { rowIndex, colIndex }) => {
+    console.log(rowIndex, colIndex, newStatus);
+    const { grid } = this.state;
+
+    grid[rowIndex][colIndex].status = newStatus;
+
+    this.setState({
+      grid
+    });
+  };
+
   render() {
     const { grid } = this.state;
     return (
@@ -78,7 +95,12 @@ class Grid extends Component {
         {grid.map((row, i) => (
           <div key={i} className="grid__row">
             {row.map((cell, j) => (
-              <Cell key={`${i}-${j}`} className="grid__cell" {...grid[i][j]} />
+              <Cell
+                key={`${i}-${j}`}
+                className="grid__cell"
+                {...grid[i][j]}
+                onClick={this.handleCellClick}
+              />
             ))}
           </div>
         ))}
