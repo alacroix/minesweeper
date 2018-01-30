@@ -48,6 +48,7 @@
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
+    "babel-plugin-transform-decorators": "6.24.1",
     "gh-pages": "1.1.0"
   },
   "scripts": {
@@ -94,6 +95,9 @@
   "babel": {
     "presets": [
       "react-app"
+    ],
+    "plugins": [
+      "transform-decorators"
     ]
   },
   "eslintConfig": {
