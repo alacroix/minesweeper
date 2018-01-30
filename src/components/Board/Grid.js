@@ -21,7 +21,6 @@ class Grid extends Component {
 
   initGrid = () => {
     // init grid
-
     const grid = Array(ROW_NUMBER)
       .fill()
       .map((_, rowIndex) =>
@@ -107,6 +106,8 @@ class Grid extends Component {
     const { grid } = this.state;
 
     const cell = grid[rowIndex][colIndex];
+
+    this.props.onCellClick(cell.status, newStatus);
 
     cell.status = newStatus;
 
