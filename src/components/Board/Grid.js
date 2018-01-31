@@ -90,7 +90,7 @@ class Grid extends Component {
     ) {
       this.getNeighboringCells(cell.rowIndex, cell.colIndex, grid).forEach(
         neighbor => {
-          if (neighbor.type !== 'mine' && neighbor.status !== 'pressed') {
+          if (neighbor.type !== 'mine' && neighbor.status === 'clear') {
             neighbor.status = 'pressed';
             if (neighbor.minesAround === 0) {
               this.pressNeighboringCells(neighbor, grid);
