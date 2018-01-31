@@ -5,6 +5,7 @@ import './App.css';
 import Board from './components/Board';
 import Counter from './components/Counter';
 import Game from './stores/game';
+import Restart from './components/Restart';
 
 class App extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class App extends Component {
       <div className="App">
         <header>
           <Counter store={this.game} />
+          <Restart store={this.game} />
         </header>
         <Board store={this.game} />
       </div>
