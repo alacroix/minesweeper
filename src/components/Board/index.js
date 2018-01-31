@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 
-import { initGrid } from '../../services/grid';
 import Grid from './Grid';
 
 class Board extends Component {
-  componentWillMount() {
-    this.grid = initGrid();
-  }
-
   handleCellClick = (oldStatus, newStatus) => {
     const { incrementCounter, decrementCounter } = this.props.store;
     if (oldStatus === 'clear' && newStatus === 'flagged') {
@@ -18,8 +14,9 @@ class Board extends Component {
   };
 
   render() {
-    return <Grid grid={this.grid} onCellClick={this.handleCellClick} />;
+    const { grid } = this.props.store;
+    return <Grid grid={grid} onCellClick={this.handleCellClick} />;
   }
 }
 
-export default Board;
+export default observer(Board);

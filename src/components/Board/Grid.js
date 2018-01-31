@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
-import {
-  getNeighboringCells,
-  pressNeighboringCells
-} from '../../services/grid';
+import { pressNeighboringCells } from '../../services/grid';
 import Cell from './Cell';
 import './style.css';
 
@@ -11,6 +8,14 @@ class Grid extends Component {
   state = {
     grid: this.props.grid
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.grid) {
+      this.setState({
+        grid: nextProps.grid
+      });
+    }
+  }
 
   handleCellClick = (newStatus, { rowIndex, colIndex }) => {
     console.log(rowIndex, colIndex, newStatus);
