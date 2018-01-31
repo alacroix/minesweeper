@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 
 import Grid from './Grid';
 
@@ -13,8 +14,9 @@ class Board extends Component {
   };
 
   render() {
-    return <Grid onCellClick={this.handleCellClick} />;
+    const { grid } = this.props.store;
+    return <Grid grid={grid} onCellClick={this.handleCellClick} />;
   }
 }
 
-export default Board;
+export default observer(Board);
