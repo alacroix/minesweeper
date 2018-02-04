@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 
+import { GAME_STATUS, checkGridStatus } from '../../services/grid';
 import Grid from './Grid';
 
 class Board extends Component {
@@ -13,9 +14,21 @@ class Board extends Component {
     }
   };
 
+  handleGameStatus = grid => {
+    const { changeStatus } = this.props.store;
+    changeStatus(checkGridStatus(grid));
+  };
+
   render() {
-    const { grid } = this.props.store;
-    return <Grid grid={grid} onCellClick={this.handleCellClick} />;
+    const { grid, isGameOver } = this.props.store;
+    return (
+      <Grid
+        grid={grid}
+        isOver={isGameOver}
+        checkGameStatus={this.handleGameStatus}
+        onCellClick={this.handleCellClick}
+      />
+    );
   }
 }
 

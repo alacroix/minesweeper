@@ -18,7 +18,6 @@ class Grid extends Component {
   }
 
   handleCellClick = (newStatus, { rowIndex, colIndex }) => {
-    console.log(rowIndex, colIndex, newStatus);
     const { grid } = this.state;
 
     const cell = grid[rowIndex][colIndex];
@@ -29,15 +28,23 @@ class Grid extends Component {
 
     pressNeighboringCells(cell, grid);
 
+    this.props.checkGameStatus(grid);
+
     this.setState({
       grid
     });
   };
 
+  handleGridClick = e => {
+    if (this.props.isOver) {
+      e.stopPropagation();
+    }
+  };
+
   render() {
     const { grid } = this.state;
     return (
-      <div className="grid">
+      <div className="grid" onClickCapture={this.handleGridClick}>
         {grid.map((row, i) => (
           <div key={i} className="grid__row">
             {row.map((cell, j) => (
