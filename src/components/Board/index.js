@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 
-import { GAME_STATUS, checkGridStatus } from '../../services/grid';
+import { checkGridStatus } from '../../services/grid';
 import Grid from './Grid';
 
 class Board extends Component {

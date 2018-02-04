@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 
+import Digits from '../Digits';
+
 class Counter extends Component {
   render() {
     const { counter } = this.props.store;
-    return <div>{counter}</div>;
+    return <Digits count={3} value={counter} />;
   }
 }
 

@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
+import cn from 'classnames';
 import { observer } from 'mobx-react';
+
+import StatusFace from './StatusFace';
 
 class Restart extends Component {
   render() {
     const { isWon, isLost, restartGame } = this.props.store;
 
-    let text = '';
-    if (isWon) {
-      text = 'You won! 🎉 ';
-    } else if (isLost) {
-      text = 'You lost! 💀 ';
-    }
-    text += 'Restart?';
+    const cls = cn('status-face', {
+      'status-face--won': isWon,
+      'status-face--lost': isLost
+    });
 
-    return <div onClick={restartGame}>{text}</div>;
+    return <StatusFace className={cls} onClick={restartGame} />;
   }
 }
 
