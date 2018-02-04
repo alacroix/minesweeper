@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
-import cn from 'classnames';
 
-class Cell extends PureComponent {
+import Cell from './Cell';
+
+class WrappedCell extends PureComponent {
   handleStatusChange = newStatus => {
     const { rowIndex, colIndex, status } = this.props;
     if (status !== 'pressed') {
@@ -20,22 +21,18 @@ class Cell extends PureComponent {
   };
 
   render() {
-    const { className, type, minesAround, status } = this.props;
-    const cls = cn(className, {
-      [`${className}--pressed`]: status === 'pressed',
-      [`${className}--flagged`]: status === 'flagged'
-    });
+    const { type, minesAround, status } = this.props;
     return (
-      <div
-        className={cls}
+      <Cell
+        className="grid__cell"
         onClick={this.handleOnClick}
         onContextMenu={this.handleRightClick}
-      >
-        {status === 'pressed' &&
-          (type === 'mine' ? 'M' : minesAround !== 0 && minesAround)}
-      </div>
+        minesAround={minesAround}
+        status={status}
+        cellType={type}
+      />
     );
   }
 }
 
-export default Cell;
+export default WrappedCell;

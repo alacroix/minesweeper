@@ -25,8 +25,6 @@ class Digits extends PureComponent {
       digits = ['0', ...digits];
     }
 
-    console.log(digits);
-
     return (
       <Wrapper className="digits">
         {[...Array(count)].map((e, i) => <Digit key={i} value={digits[i]} />)}

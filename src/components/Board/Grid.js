@@ -50,7 +50,6 @@ class Grid extends Component {
             {row.map((cell, j) => (
               <Cell
                 key={`${i}-${j}`}
-                className="grid__cell"
                 {...grid[i][j]}
                 onClick={this.handleCellClick}
               />
