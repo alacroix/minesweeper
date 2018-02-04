@@ -5,6 +5,12 @@ const MINES_NUMBER = 10;
 const generateNumber = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
+export const GAME_STATUS = Object.freeze({
+  RUNNING: 0,
+  WON: 1,
+  LOST: 2
+});
+
 export const initGrid = () => {
   // init grid
   const grid = Array(ROW_NUMBER)
@@ -83,4 +89,29 @@ export const pressNeighboringCells = (cell, grid) => {
       }
     );
   }
+};
+
+export const checkGridStatus = grid => {
+  let isOver = true;
+
+  for (let i = 0; i < grid.length; i += 1) {
+    const row = grid[i];
+    for (let j = 0; j < row.length; j += 1) {
+      const cell = row[j];
+
+      if (cell.type === 'mine') {
+        if (cell.status === 'pressed') {
+          console.log('LOST');
+          return GAME_STATUS.LOST;
+        }
+      } else {
+        if (cell.status !== 'pressed') {
+          isOver = false;
+        }
+      }
+    }
+  }
+
+  console.log(isOver ? 'WON' : 'RUNNING');
+  return isOver ? GAME_STATUS.WON : GAME_STATUS.RUNNING;
 };
