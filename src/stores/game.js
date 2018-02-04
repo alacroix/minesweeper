@@ -8,7 +8,9 @@ class Game {
       counter: 10,
       grid: initGrid(),
       status: GAME_STATUS.RUNNING,
-      isGameOver: computed(() => this.status !== GAME_STATUS.RUNNING)
+      isGameOver: computed(() => this.status !== GAME_STATUS.RUNNING),
+      isWon: computed(() => this.status === GAME_STATUS.WON),
+      isLost: computed(() => this.status === GAME_STATUS.LOST)
     });
   }
 
